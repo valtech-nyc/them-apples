@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import sio from 'socket.io-client';
 import logo from './logo.svg';
 import './App.css';
+import Scoreboard from './components/scoreboard.js';
 import { Loop, Stage } from 'react-game-kit';
 
 import Apple from './components/apple';
