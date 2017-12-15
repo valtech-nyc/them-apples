@@ -28,6 +28,7 @@ if (app.get('env') === 'development') {
     const compiler = webpack(config);
 
     app.use(webpackMiddleware(compiler, {
+        quiet: true,
         publicPath: config.output.publicPath,
     }));
     app.use(require('webpack-hot-middleware')(compiler));
