@@ -5,6 +5,26 @@ import Player from './player';
 import playerSprite from './assets/character-sprite.png';
 
 class App extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            currentPlayer: {
+                id: 0,
+                name: '',
+                positionX: 100,
+                positionY: 10,
+                speed: 100,
+                directionDegrees: 0,
+                score: 10,
+                lastUpdateTime: 0,
+                sizeMultiple: 2
+            },
+            otherPlayers: []
+        };
+    }
+
     render() {
         return (
             <Loop>
@@ -12,10 +32,10 @@ class App extends Component {
                     <World>
                         <Body args={[10, 10]}>
                             <Player
-                                spriteHeight={100}
-                                spriteWidth={100}
                                 spritePath={playerSprite}
-                                sizeMultiple={2}
+                                sizeMultiple={this.state.currentPlayer.sizeMultiple}
+                                positionX={this.state.currentPlayer.positionX}
+                                positionY={this.state.currentPlayer.positionY}
                             />
                         </Body>
                     </World>
