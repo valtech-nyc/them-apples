@@ -16,7 +16,10 @@ class Player extends React.Component {
             spriteTileWidth: props.spriteTileWidth || 64,
             spriteTileHeight: props.spriteTileHeight || 64,
             spriteRowState: props.spriteRowState || 0,
-            spriteAnimationSequence: props.spriteAnimationSequence || [9, 9, 0, 4, 5]
+            spriteAnimationSequence: props.spriteAnimationSequence || [9, 9, 0, 4, 5],
+            speed: 100,
+            directionDegrees: 0, // 0-359,
+            lastUpdateTime: props.time || new Date().getTime()
         };
     }
 
