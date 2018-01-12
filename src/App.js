@@ -26,6 +26,7 @@ class App extends Component {
                     <img src={logo} />
 
                     <Apple color={'red'} x={100} y={150} />
+                    <Scoreboard color="red"/>
                 </Stage>
             </Loop>
         );
