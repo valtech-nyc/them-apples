@@ -20,9 +20,16 @@ class Player extends React.Component {
         };
     }
 
+
+    getPlayerStyles = () => {
+        return {
+            position: 'absolute',
+            transform: `translate(${this.props.positionX}px, ${this.props.positionY}px)`
+        };
+    };
     render() {
         return (
-            <div id={'player-' + this.state.id} className='player-sprite-container'>
+            <div id={'player-' + this.state.id} className='player-sprite-container' style={this.getPlayerStyles()}>
                 <Sprite
                     repeat={true}
                     src={this.state.spritePath}
