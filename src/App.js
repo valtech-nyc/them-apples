@@ -6,7 +6,7 @@ import { Loop, Stage } from 'react-game-kit';
 
 class App extends Component {
     componentDidMount () {
-        this.io = sio('http://localhost:3000', {
+        this.io = sio(process.env.PUBLIC_URL, {
             path: '/game'
         });
 
