@@ -11,6 +11,8 @@ class App extends Component {
             <Loop>
                 <Stage style={ { background: '#000' } }>
                     <img src={logo} />
+
+                    <Apple color={'red'} x={100} y={150} />
                 </Stage>
             </Loop>
         );

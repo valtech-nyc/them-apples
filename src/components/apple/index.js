@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import './apple.css';
 
+/**
+ * Apple Component
+ *
+ * Attributes:
+ * - color - color of the apple
+ * - x - top offset pixels
+ * - y - left offset pixels
+ *
+ * Usage Example:
+ * <Apple color={'red'} x={100} y={150} />
+ */
 class Apple extends Component {
     render () {
         return (
