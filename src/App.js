@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Map from './world-map/World-Map';
 import './App.css';
 import { Loop, Stage } from 'react-game-kit';
 
@@ -8,7 +8,7 @@ class App extends Component {
         return (
             <Loop>
                 <Stage style={ { background: '#000' } }>
-                    <img src={logo} />
+                    <Map/>
                 </Stage>
             </Loop>
         );
