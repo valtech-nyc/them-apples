@@ -3,6 +3,7 @@ require('../config/env');
 
 const path = require('path');
 const express = require('express');
+const sio = require('socket.io')
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -28,6 +29,7 @@ if (app.get('env') === 'development') {
     const compiler = webpack(config);
 
     app.use(webpackMiddleware(compiler, {
+        quiet: true,
         publicPath: config.output.publicPath,
     }));
     app.use(require('webpack-hot-middleware')(compiler));
@@ -64,4 +66,18 @@ app.use((err, req, res) => {
     });
 });
 
-module.exports = app;
+const io = sio({
+    path: '/game'
+});
+
+io.on('connection', socket => {
+    socket.on('msg', msg => {
+        if (msg === 'hello') {
+            console.log(msg);
+            socket.emit('msg', 'world')
+        }
+    });
+});
+
+exports.app = app;
+exports.io = io;

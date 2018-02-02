@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-const app = require('../src/server');
+const { app, io } = require('../src/server');
 const debug = require('debug')('server:themapples');
 const http = require('http');
 
@@ -31,6 +31,8 @@ const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+io.attach(server);
 
 /**
  * Normalize a port into a number, string, or false.
