@@ -11,24 +11,20 @@ import Apple from './components/apple';
 
 class App extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            currentPlayer: {
-                id: 0,
-                name: '',
-                positionX: 100,
-                positionY: 10,
-                speed: 100,
-                directionDegrees: 0,
-                score: 10,
-                lastUpdateTime: 0,
-                sizeMultiple: 2
-            },
-            otherPlayers: []
-        };
-    }
+    state = {
+        currentPlayer: {
+            id: 0,
+            name: '',
+            positionX: 100,
+            positionY: 10,
+            speed: 100,
+            directionDegrees: 0,
+            score: 10,
+            lastUpdateTime: 0,
+            sizeMultiple: 2
+        },
+        otherPlayers: []
+    };
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyPress);
