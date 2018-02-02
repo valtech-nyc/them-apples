@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+
+import sio from 'socket.io-client';
+
 import './App.css';
 import { Loop, Stage, Body, World } from 'react-game-kit';
 import Player from './player';
 import playerSprite from './assets/character-sprite.png';
+
+import Apple from './components/apple';
 
 class App extends Component {
 
@@ -27,6 +32,14 @@ class App extends Component {
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyPress);
+        this.io = sio(process.env.PUBLIC_URL, {
+            path: '/game'
+        });
+
+        this.io.on('connect', () => {
+            this.io.on('msg', msg => console.log(msg));
+            this.io.emit('msg', 'hello');
+        });
     }
 
     componentWillUnmount() {
@@ -74,6 +87,7 @@ class App extends Component {
             <Loop>
                 <Stage style={ { background: '#000' } }>
                     <World>
+                        <Apple color={'red'} x={100} y={150} />
                         <Body args={[10, 10]}>
                             <Player
                                 spritePath={playerSprite}
