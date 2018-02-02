@@ -72,10 +72,14 @@ class App extends Component {
                 break;
         }
 
-        const newState = { ...this.state };
-        newState.currentPlayer.positionX = newPositionX;
-        newState.currentPlayer.positionY = newPositionY;
-        this.setState(newState);
+        this.setState({
+            ...this.state,
+            currentPlayer: {
+                ...this.state.currentPlayer,
+                positionX: newPositionX,
+                positionY: newPositionY
+            }
+        });
     };
 
     render() {
