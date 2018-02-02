@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import sio from 'socket.io-client';
-import logo from './logo.svg';
 import Map from './world-map/World-Map';
 import './App.css';
 import { Loop, Stage } from 'react-game-kit';
@@ -23,8 +22,6 @@ class App extends Component {
         return (
             <Loop>
                 <Stage style={ { background: '#000' } }>
-                    <img src={logo} />
-
                     <Apple color={'red'} x={100} y={150} />
                     <Map/>
                 </Stage>
