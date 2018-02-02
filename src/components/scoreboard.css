@@ -1,0 +1,9 @@
+.component-scoreboard {
+    border: 1px solid red;
+    color: white;
+    height: 4vw;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 7vw;
+}

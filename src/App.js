@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import sio from 'socket.io-client';
 
 import './App.css';
+import Scoreboard from './components/scoreboard.js';
 import { Loop, Stage, Body, World } from 'react-game-kit';
 import Player from './player';
 import playerSprite from './assets/character-sprite.png';
