@@ -1,9 +1,36 @@
 .component-scoreboard {
-    border: 1px solid red;
     color: white;
-    height: 4vw;
+    min-height: 4vw;
+    padding-right: 25px;
+    padding-top: 7px;
     position: absolute;
     right: 0px;
     top: 0px;
     width: 7vw;
+}
+
+.component-scoreboard h2 {
+    font-family: 'Gloria Hallelujah', cursive;
+    margin: 0px;
+    text-align: center;
+}
+
+.component-scoreboard ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.component-scoreboard li {
+    margin-bottom: 5px;
+}
+
+.component-scoreboard li.current-player {
+    color: #D18377;
+}
+
+.component-scoreboard ul li small {
+    font-size: inherit;
+    float: right;
+    clear: left;
 }

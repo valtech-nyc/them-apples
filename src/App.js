@@ -24,7 +24,20 @@ class App extends Component {
             lastUpdateTime: 0,
             sizeMultiple: 2
         },
-        otherPlayers: []
+        otherPlayers: [
+            {
+                name: 'Daryl',
+                score: 15
+            },
+            {
+                name: 'Salvo',
+                score: 8
+            },
+            {
+                name: 'Liza',
+                score: 530
+            }
+        ]
     };
 
     componentDidMount() {
@@ -88,7 +101,7 @@ class App extends Component {
             <Loop>
                 <Stage style={ { background: '#000' } }>
                     <World>
-                        <Apple color={'red'} x={100} y={150} />
+                        <Apple color={'red'} x={100} y={150}/>
                         <Body args={[10, 10]}>
                             <Player
                                 spritePath={playerSprite}
@@ -98,6 +111,7 @@ class App extends Component {
                             />
                         </Body>
                     </World>
+                    <Scoreboard currPlayer={this.state.currentPlayer} otherPlayers={this.state.otherPlayers}/>
                 </Stage>
             </Loop>
         );
