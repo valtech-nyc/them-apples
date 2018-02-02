@@ -26,20 +26,20 @@ class App extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('keypress', this.handleKeyPress);
+        window.addEventListener('keydown', this.handleKeyPress);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('keypress', this.handleKeyPress);
+        window.removeEventListener('keydown', this.handleKeyPress);
     }
 
     handleKeyPress = (e) => {
         const keys = {
             ENTER: 13,
-            A: 97,  // LEFT
-            S: 115, // DOWN
-            W: 119, // UP
-            D: 100  // RIGHT
+            LEFT: 37,
+            UP: 38,
+            RIGHT: 39,
+            DOWN: 40
         };
 
         const MOVEMENT_AMOUNT = 10;
@@ -48,17 +48,17 @@ class App extends Component {
         let newPositionX = currentPositionX;
         let newPositionY = currentPositionY;
 
-        switch (e.keyCode) {
-            case keys.A:
+        switch (e.which) {
+            case keys.LEFT:
                 newPositionX = currentPositionX - MOVEMENT_AMOUNT;
                 break;
-            case keys.S:
+            case keys.DOWN:
                 newPositionY = currentPositionY + MOVEMENT_AMOUNT;
                 break;
-            case keys.W:
+            case keys.UP:
                 newPositionY = currentPositionY - MOVEMENT_AMOUNT;
                 break;
-            case keys.D:
+            case keys.RIGHT:
                 newPositionX = currentPositionX + MOVEMENT_AMOUNT;
                 break;
         }
