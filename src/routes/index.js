@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="/manifest.json">
-    <title>them apples</title>
+    <title>Them Apples</title>
   </head>
   <body>
     <noscript>
