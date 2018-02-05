@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import sio from 'socket.io-client';
 
 import './App.css';
+import Scoreboard from './components/scoreboard.js';
 import { Loop, Stage, Body, World } from 'react-game-kit';
 import Player from './player';
 import playerSprite from './assets/character-sprite.png';
@@ -23,7 +24,20 @@ class App extends Component {
             lastUpdateTime: 0,
             sizeMultiple: 2
         },
-        otherPlayers: []
+        otherPlayers: [
+            {
+                name: 'Daryl',
+                score: 15
+            },
+            {
+                name: 'Salvo',
+                score: 8
+            },
+            {
+                name: 'Liza',
+                score: 530
+            }
+        ]
     };
 
     componentDidMount() {
@@ -87,7 +101,7 @@ class App extends Component {
             <Loop>
                 <Stage style={ { background: '#000' } }>
                     <World>
-                        <Apple color={'red'} x={100} y={150} />
+                        <Apple color={'red'} x={100} y={150}/>
                         <Body args={[10, 10]}>
                             <Player
                                 spritePath={playerSprite}
@@ -97,6 +111,7 @@ class App extends Component {
                             />
                         </Body>
                     </World>
+                    <Scoreboard currPlayer={this.state.currentPlayer} otherPlayers={this.state.otherPlayers}/>
                 </Stage>
             </Loop>
         );
