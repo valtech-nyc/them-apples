@@ -65,6 +65,7 @@ class App extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('keydown', this.handleKeyPress);
+        this.io.emit('disconnect', this.state.currentPlayer);
     }
 
     handleKeyPress = (e) => {
