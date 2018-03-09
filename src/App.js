@@ -114,6 +114,18 @@ class App extends Component {
         });
     };
 
+    _renderOtherPlayers() {
+        return this.state.otherPlayers.map((player, index) => {
+            return (<Player
+                key={index}
+                spritePath={playerSprite}
+                sizeMultiple={player.sizeMultiple}
+                positionX={player.positionX}
+                positionY={player.positionY}
+            />);
+        });
+    }
+
     render() {
         return (
             <Loop>
@@ -127,6 +139,7 @@ class App extends Component {
                                 positionX={this.state.currentPlayer.positionX}
                                 positionY={this.state.currentPlayer.positionY}
                             />
+                            { this._renderOtherPlayers() }
                         </Body>
                     </World>
                 </Stage>
