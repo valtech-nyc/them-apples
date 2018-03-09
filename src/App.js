@@ -4,7 +4,7 @@ import sio from 'socket.io-client';
 
 import './App.css';
 import { Loop, Stage, Body, World } from 'react-game-kit';
-import Player from './player';
+import Player from './components/player/player';
 import playerSprite from './assets/character-sprite.png';
 
 import Apple from './components/apple';
