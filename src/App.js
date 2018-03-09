@@ -32,9 +32,34 @@ class App extends Component {
             path: '/game'
         });
 
+
+        // Player messages
         this.io.on('connect', () => {
-            this.io.on('msg', msg => console.log(msg));
-            this.io.emit('msg', 'hello');
+            this.io.emit('join game', this.state.currentPlayer);
+        });
+
+        this.io.on('set player id', id => {
+            console.log(`You are player ${id}`);
+            this.setState({ currentPlayer: {
+                ...this.state.currentPlayer,
+                id: id
+            }
+            });
+        });
+
+
+        // Server messages
+        this.io.on('player joined', playerState => {
+            console.log(`Player ${playerState.id} joined the game.`, playerState);
+        });
+
+        this.io.on('player list update', playersList => {
+            console.log('Updated player list.', playersList);
+            this.setState({ otherPlayers: playersList.filter(player => player.id !== this.state.currentPlayer.id) });
+        });
+
+        this.io.on('player disconnected', playerState => {
+            console.log(`Player ${playerState.id} disconnected.`);
         });
     }
 
@@ -79,6 +104,12 @@ class App extends Component {
                 positionX: newPositionX,
                 positionY: newPositionY
             }
+        });
+
+        this.io.emit('update player state', {
+            ...this.state.currentPlayer,
+            positionX: newPositionX,
+            positionY: newPositionY
         });
     };
 
