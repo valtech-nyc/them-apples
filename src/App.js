@@ -55,7 +55,6 @@ class App extends Component {
         });
 
         this.io.on('player list update', playersList => {
-            console.log('Updated player list.', playersList);
             this.setState({ otherPlayers: playersList.filter(player => player.id !== this.state.currentPlayer.id) });
         });
 
