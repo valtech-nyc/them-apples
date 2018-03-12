@@ -15,7 +15,7 @@ import './apple.css';
 class Apple extends Component {
     render () {
         return (
-            <div className="apple" style={{ backgroundColor: this.props.color, top: this.props.x, left: this.props.y }}>
+            <div className="apple" style={{ backgroundColor: this.props.color, top: this.props.y, left: this.props.x }}>
                 <div className="top">
                     <span></span>
                 </div>

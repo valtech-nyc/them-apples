@@ -23,7 +23,8 @@ class App extends Component {
             lastUpdateTime: 0,
             sizeMultiple: 2
         },
-        otherPlayers: []
+        otherPlayers: [],
+        apples: []
     };
 
     componentDidMount() {
@@ -54,12 +55,15 @@ class App extends Component {
         });
 
         this.io.on('player list update', playersList => {
-            console.log('Updated player list.', playersList);
             this.setState({ otherPlayers: playersList.filter(player => player.id !== this.state.currentPlayer.id) });
         });
 
         this.io.on('player disconnected', playerState => {
             console.log(`Player ${playerState.id} disconnected.`);
+        });
+
+        this.io.on('init apples', apples => {
+            this.setState({ apples: apples });
         });
     }
 
@@ -109,7 +113,7 @@ class App extends Component {
 
         this.io.emit('update player state', {
             ...this.state.currentPlayer,
-            positionX: newPositionX,
+            positionX: newPositionX + 20,
             positionY: newPositionY
         });
     };
@@ -126,12 +130,25 @@ class App extends Component {
         });
     }
 
+    _renderApples() {
+        return this.state.apples.map((apple, index) => {
+            return (
+                <Apple
+                    key={index}
+                    color={apple.color}
+                    x={apple.x}
+                    y={apple.y}
+                />
+            );
+        });
+    }
+
     render() {
         return (
             <Loop>
                 <Stage style={ { background: '#000' } }>
                     <World>
-                        <Apple color={'red'} x={100} y={150} />
+                        { this._renderApples() }
                         <Body args={[10, 10]}>
                             <Player
                                 spritePath={playerSprite}
