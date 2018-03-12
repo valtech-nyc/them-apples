@@ -113,7 +113,7 @@ class App extends Component {
 
         this.io.emit('update player state', {
             ...this.state.currentPlayer,
-            positionX: newPositionX,
+            positionX: newPositionX + 20,
             positionY: newPositionY
         });
     };
