@@ -71,6 +71,25 @@ const io = sio({
 });
 
 const players = [];
+const apples = [];
+const NUMBER_OF_APPLES = 100;
+const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+console.log('LOADING APPLES');
+for (let i = 0; i < NUMBER_OF_APPLES; i++) {
+    let apple = {
+        id: i,
+        color: 'blue',
+        x: getRandomInt(0, 2000),
+        y: getRandomInt(0, 2000)
+    };
+
+    apples.push(apple);
+}
+console.log('FINISHED!');
+
 
 io.on('connection', socket => {
 
@@ -79,6 +98,7 @@ io.on('connection', socket => {
         player.id = players.length;
         players.push(player);
         socket.emit('set player id', player.id);
+        socket.emit('init apples', apples);
 
         console.log(`Player ${player.id} joined.`);
         socket.broadcast.emit('player joined', player);
