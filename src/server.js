@@ -70,12 +70,32 @@ const io = sio({
     path: '/game'
 });
 
+const players = [];
+
 io.on('connection', socket => {
-    socket.on('msg', msg => {
-        if (msg === 'hello') {
-            console.log(msg);
-            socket.emit('msg', 'world')
-        }
+
+    socket.on('join game', playerState => {
+        let player = playerState;
+        player.id = players.length;
+        players.push(player);
+        socket.emit('set player id', player.id);
+
+        console.log(`Player ${player.id} joined.`);
+        socket.broadcast.emit('player joined', player);
+        socket.broadcast.emit('player list update', players);
+    });
+
+    socket.on('update player state', playerState => {
+        console.log(`Updating Player ${playerState.id} state`);
+        players[players.findIndex(player => player.id === playerState.id)] = playerState;
+        socket.broadcast.emit('player list update', players);
+    });
+
+    // Disconnect logic
+    socket.on('disconnect', playerState => {
+        socket.emit('player disconnected', playerState);
+        players.splice(players.findIndex(player => player.id === playerState.id), 1);
+        socket.broadcast.emit('player list update', players);
     });
 });
 

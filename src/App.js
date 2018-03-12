@@ -4,7 +4,7 @@ import sio from 'socket.io-client';
 
 import './App.css';
 import { Loop, Stage, Body, World } from 'react-game-kit';
-import Player from './player';
+import Player from './components/player/player';
 import playerSprite from './assets/character-sprite.png';
 
 import Apple from './components/apple';
@@ -32,14 +32,40 @@ class App extends Component {
             path: '/game'
         });
 
+
+        // Player messages
         this.io.on('connect', () => {
-            this.io.on('msg', msg => console.log(msg));
-            this.io.emit('msg', 'hello');
+            this.io.emit('join game', this.state.currentPlayer);
+        });
+
+        this.io.on('set player id', id => {
+            console.log(`You are player ${id}`);
+            this.setState({ currentPlayer: {
+                ...this.state.currentPlayer,
+                id: id
+            }
+            });
+        });
+
+
+        // Server messages
+        this.io.on('player joined', playerState => {
+            console.log(`Player ${playerState.id} joined the game.`, playerState);
+        });
+
+        this.io.on('player list update', playersList => {
+            console.log('Updated player list.', playersList);
+            this.setState({ otherPlayers: playersList.filter(player => player.id !== this.state.currentPlayer.id) });
+        });
+
+        this.io.on('player disconnected', playerState => {
+            console.log(`Player ${playerState.id} disconnected.`);
         });
     }
 
     componentWillUnmount() {
         window.removeEventListener('keydown', this.handleKeyPress);
+        this.io.emit('disconnect', this.state.currentPlayer);
     }
 
     handleKeyPress = (e) => {
@@ -80,7 +106,25 @@ class App extends Component {
                 positionY: newPositionY
             }
         });
+
+        this.io.emit('update player state', {
+            ...this.state.currentPlayer,
+            positionX: newPositionX,
+            positionY: newPositionY
+        });
     };
+
+    _renderOtherPlayers() {
+        return this.state.otherPlayers.map((player, index) => {
+            return (<Player
+                key={index}
+                spritePath={playerSprite}
+                sizeMultiple={player.sizeMultiple}
+                positionX={player.positionX}
+                positionY={player.positionY}
+            />);
+        });
+    }
 
     render() {
         return (
@@ -95,6 +139,7 @@ class App extends Component {
                                 positionX={this.state.currentPlayer.positionX}
                                 positionY={this.state.currentPlayer.positionY}
                             />
+                            { this._renderOtherPlayers() }
                         </Body>
                     </World>
                 </Stage>
