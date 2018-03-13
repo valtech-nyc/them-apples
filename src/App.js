@@ -6,7 +6,7 @@ import './App.css';
 import { Loop, Stage, Body, World } from 'react-game-kit';
 import Player from './components/player/player';
 import playerSprite from './assets/character-sprite.png';
-
+import Scoreboard from './components/scoreboard/scoreboard.js';
 import Apple from './components/apple';
 
 class App extends Component {
@@ -14,12 +14,12 @@ class App extends Component {
     state = {
         currentPlayer: {
             id: 0,
-            name: '',
+            name: 'You',
             positionX: 100,
             positionY: 10,
             speed: 100,
             directionDegrees: 0,
-            score: 10,
+            score: 0,
             lastUpdateTime: 0,
             sizeMultiple: 2
         },
@@ -32,7 +32,6 @@ class App extends Component {
         this.io = sio(process.env.PUBLIC_URL, {
             path: '/game'
         });
-
 
         // Player messages
         this.io.on('connect', () => {
@@ -50,6 +49,15 @@ class App extends Component {
 
 
         // Server messages
+        this.io.on('update score', newScore => {
+            this.setState({
+                currentPlayer: {
+                    ...this.state.currentPlayer,
+                    score: newScore
+                }
+            });
+        });
+
         this.io.on('player joined', playerState => {
             console.log(`Player ${playerState.id} joined the game.`, playerState);
         });
@@ -159,6 +167,7 @@ class App extends Component {
                             { this._renderOtherPlayers() }
                         </Body>
                     </World>
+                    <Scoreboard currentPlayer={this.state.currentPlayer} otherPlayers={this.state.otherPlayers}/>
                 </Stage>
             </Loop>
         );
