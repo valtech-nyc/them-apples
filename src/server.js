@@ -76,6 +76,7 @@ const appleData = appleLoader.load();
 const apples = appleData.apples;
 const appleCollisionCoords = appleData.appleCollisionCoords;
 const eatenApples = [];
+const appleScoreValue = 10;
 
 io.on('connection', socket => {
 
@@ -100,11 +101,14 @@ io.on('connection', socket => {
             console.log(`Apple ${appleCollision.appleId} was eaten!`);
             eatenApples.push(appleCollision.appleId);
             apples.splice(apples.findIndex(apple => apple.id === appleCollision.appleId), 1);
+            playerState.score += appleScoreValue;
+            socket.emit('update score', playerState.score);
             socket.emit('init apples', apples);
             socket.broadcast.emit('init apples', apples);
         }
 
         socket.broadcast.emit('player list update', players);
+
     });
 
     // Disconnect logic

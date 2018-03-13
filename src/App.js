@@ -14,12 +14,12 @@ class App extends Component {
     state = {
         currentPlayer: {
             id: 0,
-            name: '',
+            name: 'You',
             positionX: 100,
             positionY: 10,
             speed: 100,
             directionDegrees: 0,
-            score: 10,
+            score: 0,
             lastUpdateTime: 0,
             sizeMultiple: 2
         },
@@ -49,6 +49,15 @@ class App extends Component {
 
 
         // Server messages
+        this.io.on('update score', newScore => {
+            this.setState({
+                currentPlayer: {
+                    ...this.state.currentPlayer,
+                    score: newScore
+                }
+            });
+        });
+
         this.io.on('player joined', playerState => {
             console.log(`Player ${playerState.id} joined the game.`, playerState);
         });
