@@ -1,17 +1,27 @@
 .component-scoreboard {
+    -webkit-box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.75);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.75);
     color: white;
     min-height: 4vw;
-    padding-right: 25px;
-    padding-top: 7px;
     position: absolute;
-    right: 0px;
-    top: 0px;
-    width: 7vw;
+    right: 10px;
+    top: 5px;
+}
+
+.component-scoreboard.frame {
+    border: 30px solid pink;
+    height: auto;
+    border-image: url("//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/frame.png") 100;
+    width: 150px;
 }
 
 .component-scoreboard h2 {
+    color: #fff;
     font-family: 'Gloria Hallelujah', cursive;
-    margin: 0px;
+    line-height: 23px;
+    margin: 0px 0px 15px 0px;
     text-align: center;
 }
 
@@ -26,7 +36,7 @@
 }
 
 .component-scoreboard li.current-player {
-    color: #D18377;
+    color: #ff3414;
 }
 
 .component-scoreboard ul li small {

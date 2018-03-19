@@ -1,4 +1,3 @@
-
 const NUMBER_OF_APPLES = 100;
 const APPLE_WIDTH = 34;
 const APPLE_HEIGHT = 46;
@@ -62,7 +61,7 @@ const load = () => {
     for (let i = 0; i < NUMBER_OF_APPLES; i++) {
         let apple = {
             id: i,
-            color: 'blue',
+            color: '#be0000',
             x: getRandomInt(0, 2000),
             y: getRandomInt(0, 2000)
         };

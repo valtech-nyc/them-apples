@@ -5,7 +5,7 @@ class Scoreboard extends React.Component {
 
     render() {
         return (
-            <div className="component-scoreboard">
+            <div className="component-scoreboard frame">
                 <h2>Score</h2>
                 <ul>
                     <li className="current-player">
