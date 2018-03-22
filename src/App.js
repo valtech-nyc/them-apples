@@ -8,6 +8,7 @@ import Player from './components/player/player';
 import playerSprite from './assets/character-sprite.png';
 import Scoreboard from './components/scoreboard/scoreboard.js';
 import Apple from './components/apple';
+import theme1Bkgd from './assets/theme1_bkgd.jpg';
 
 class App extends Component {
 
@@ -154,7 +155,7 @@ class App extends Component {
     render() {
         return (
             <Loop>
-                <Stage style={ { background: '#000' } }>
+                <Stage style={ { backgroundColor: '#000 ', backgroundImage: 'url(' + theme1Bkgd + ')',  backgroundSize: '180px 180px'  } }>
                     <World>
                         { this._renderApples() }
                         <Body args={[10, 10]}>

@@ -1,10 +1,14 @@
 .apple {
+    border: 1px solid #000;
     position: fixed;
     width: 46px;
     height: 34px;
     border-radius: 36% 36% 41% 41% / 42% 42% 75% 75%;
     margin: 81px 0 0 10px;
     background-color: red;
+    -webkit-box-shadow: 10px 10px 13px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 13px  -6px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 13px  -6px rgba(0,0,0,0.75);
 }
 
 .butt span {
@@ -64,6 +68,7 @@
     top: -193%;
     width: 90%;
     background-color: green;
+    border: 1px solid #333;
 }
 
 .top {
