@@ -12,9 +12,7 @@ import paths from '../config/paths';
 import routes from './routes';
 import { ioDelta } from './deltas';
 import run from './run';
-
-const reducer = (state, action) => state;
-const initial = {};
+import { reducer, initial } from './reducer';
 
 const app = express();
 app.use(favicon(path.join(paths.appAssets, 'favicon.ico')));
