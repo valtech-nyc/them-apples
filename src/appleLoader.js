@@ -7,39 +7,39 @@ const APPLE_HEIGHT = 46;
 // apples there are, the longer it takes to create the collision object.
 // Someone should work on a better collision detection algorithm
 const getAreaCoords = (apple) => {
-    let halfAppleHeight = APPLE_HEIGHT / 2;
-    let halfAppleWidth = APPLE_WIDTH / 2;
+    const halfAppleHeight = APPLE_HEIGHT / 2;
+    const halfAppleWidth = APPLE_WIDTH / 2;
 
-    let appleQ1Q3X = apple.x - halfAppleWidth;
-    let appleQ2Q4X = apple.x + halfAppleWidth;
-    let appleQ1Q2Y = apple.y + halfAppleHeight;
-    let appleQ3Q4Y = apple.y - halfAppleHeight;
+    const appleQ1Q3X = apple.x - halfAppleWidth;
+    const appleQ2Q4X = apple.x + halfAppleWidth;
+    const appleQ1Q2Y = apple.y + halfAppleHeight;
+    const appleQ3Q4Y = apple.y - halfAppleHeight;
 
-    let upperLeftCorner = {
+    const upperLeftCorner = {
         x: appleQ1Q3X,
         y: appleQ1Q2Y
     };
 
-    let upperRightCorner = {
+    const upperRightCorner = {
         x: appleQ2Q4X,
         y: appleQ1Q2Y
     };
 
-    let lowerLeftCorner = {
+    const lowerLeftCorner = {
         x: appleQ1Q3X,
         y: appleQ3Q4Y
     };
 
-    let lowerRightCorner = {
+    const lowerRightCorner = {
         x: appleQ2Q4X,
         y: appleQ3Q4Y
     };
 
-    let appleAreaCoords = {};
+    const appleAreaCoords = {};
 
     // Iterate through each x column on the y row
-    for (let row = upperLeftCorner.y; row >= lowerLeftCorner.y; row --) {
-        for (let column = upperLeftCorner.x; column <= upperRightCorner.x; column ++) {
+    for (let row = upperLeftCorner.y; row >= lowerLeftCorner.y; row--) {
+        for (let column = upperLeftCorner.x; column <= upperRightCorner.x; column++) {
             // Create a unique key to look up the collision... (check for negative since we can't use "-" in a property name)
             appleAreaCoords[`${column < 0 ? 'N' + column * -1 : column}.${row < 0 ? 'N' + row * -1 : row}`] = {
                 appleId: apple.id
@@ -54,12 +54,12 @@ const getRandomInt = (min, max) => {
 };
 
 const load = () => {
-    let apples = [];
+    const apples = [];
     let appleCollisionCoords = {};
 
     console.log('LOADING APPLES');
     for (let i = 0; i < NUMBER_OF_APPLES; i++) {
-        let apple = {
+        const apple = {
             id: i,
             color: '#be0000',
             x: getRandomInt(0, 2000),

@@ -1,16 +1,18 @@
 // Ensure environment variables are read.
-require('../config/env');
+import '../config/env';
 
-const path = require('path');
-const express = require('express');
-const sio = require('socket.io')
-const favicon = require('serve-favicon');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const paths = require('../config/paths');
-const routes = require('./routes');
-const appleLoader = require('./appleLoader');
+import path from 'path';
+import express from 'express';
+import sio from 'socket.io';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import paths from '../config/paths';
+import routes from './routes';
+import { ioDelta } from './deltas';
+import run from './run';
+import { reducer, initial } from './reducer';
 
 const app = express();
 app.use(favicon(path.join(paths.appAssets, 'favicon.ico')));
@@ -25,7 +27,7 @@ app.use('/', routes);
 if (app.get('env') === 'development') {
     const webpack = require('webpack');
     const webpackMiddleware = require('webpack-dev-middleware');
-    const config = require('../config/webpack.config.dev');
+    const config = require('../config/webpack.config.dev').default;
 
     const compiler = webpack(config);
 
@@ -71,53 +73,7 @@ const io = sio({
     path: '/game'
 });
 
-const players = [];
-const appleData = appleLoader.load();
-const apples = appleData.apples;
-const appleCollisionCoords = appleData.appleCollisionCoords;
-const eatenApples = [];
-const appleScoreValue = 10;
-
-io.on('connection', socket => {
-
-    socket.on('join game', playerState => {
-        let player = playerState;
-        player.id = players.length;
-        players.push(player);
-        socket.emit('set player id', player.id);
-        socket.emit('init apples', apples);
-
-        console.log(`Player ${player.id} joined.`);
-        socket.broadcast.emit('player joined', player);
-        socket.broadcast.emit('player list update', players);
-    });
-
-    socket.on('update player state', playerState => {
-        players[players.findIndex(player => player.id === playerState.id)] = playerState;
-
-        // Check if apple was eaten
-        let appleCollision = appleCollisionCoords[`${playerState.positionX}.${playerState.positionY}`];
-        if (appleCollision && eatenApples.findIndex(appleId => appleCollision.appleId === appleId) === -1) {
-            console.log(`Apple ${appleCollision.appleId} was eaten!`);
-            eatenApples.push(appleCollision.appleId);
-            apples.splice(apples.findIndex(apple => apple.id === appleCollision.appleId), 1);
-            playerState.score += appleScoreValue;
-            socket.emit('update score', playerState.score);
-            socket.emit('init apples', apples);
-            socket.broadcast.emit('init apples', apples);
-        }
-
-        socket.broadcast.emit('player list update', players);
-
-    });
-
-    // Disconnect logic
-    socket.on('disconnect', playerState => {
-        socket.emit('player disconnected', playerState);
-        players.splice(players.findIndex(player => player.id === playerState.id), 1);
-        socket.broadcast.emit('player list update', players);
-    });
-});
-
-exports.app = app;
-exports.io = io;
+export const stop = run(reducer, initial, [
+    ioDelta(io)
+]);
+export { app, io  };

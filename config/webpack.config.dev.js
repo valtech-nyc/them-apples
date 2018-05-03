@@ -1,14 +1,12 @@
-'use strict';
-
-const autoprefixer = require('autoprefixer');
-const path = require('path');
-const webpack = require('webpack');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
-const getClientEnvironment = require('./env');
-const paths = require('./paths');
+import autoprefixer from 'autoprefixer';
+import path from 'path';
+import webpack from 'webpack';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
+import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
+import eslintFormatter from 'react-dev-utils/eslintFormatter';
+import ModuleScopePlugin from 'react-dev-utils/ModuleScopePlugin';
+import getClientEnvironment from './env';
+import paths from './paths';
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -23,7 +21,7 @@ const env = getClientEnvironment(publicUrl);
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
-module.exports = {
+export default {
     // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
     // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
     devtool: 'cheap-module-source-map',
