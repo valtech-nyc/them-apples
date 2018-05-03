@@ -1,8 +1,6 @@
-'use strict';
-
-const fs = require('fs');
-const path = require('path');
-const paths = require('./paths');
+import fs from 'fs';
+import path from 'path';
+import paths from './paths';
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
@@ -15,7 +13,7 @@ if (!NODE_ENV) {
 }
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
-var dotenvFiles = [
+const dotenvFiles = [
     `${paths.dotenv}.${NODE_ENV}.local`,
     `${paths.dotenv}.${NODE_ENV}`,
     // Don't include `.env.local` for `test` environment
@@ -87,4 +85,4 @@ function getClientEnvironment (publicUrl) {
     return { raw, stringified };
 }
 
-module.exports = getClientEnvironment;
+export default getClientEnvironment;

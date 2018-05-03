@@ -1,7 +1,7 @@
-const Kefir = require('kefir');
-const appleLoader = require('../appleLoader');
+import Kefir from 'kefir';
+import appleLoader from '../appleLoader';
 
-module.exports = io => (action$, state$) => Kefir.stream(emitter => {
+export default io => (action$, state$) => Kefir.stream(emitter => {
     const players = [];
     const appleData = appleLoader.load();
     const apples = appleData.apples;
@@ -47,4 +47,4 @@ module.exports = io => (action$, state$) => Kefir.stream(emitter => {
             socket.broadcast.emit('player list update', players);
         });
     });
-});
+})

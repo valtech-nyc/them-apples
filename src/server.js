@@ -1,17 +1,18 @@
 // Ensure environment variables are read.
-require('../config/env');
+import '../config/env';
 
-const path = require('path');
-const express = require('express');
-const sio = require('socket.io');
-const favicon = require('serve-favicon');
-const logger = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const paths = require('../config/paths');
-const routes = require('./routes');
-const { ioDelta } = require('./deltas');
-const run = require('./run');
+import path from 'path';
+import express from 'express';
+import sio from 'socket.io';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import paths from '../config/paths';
+import routes from './routes';
+import { ioDelta } from './deltas';
+import run from './run';
+
 const reducer = (state, action) => state;
 const initial = {};
 
@@ -28,7 +29,7 @@ app.use('/', routes);
 if (app.get('env') === 'development') {
     const webpack = require('webpack');
     const webpackMiddleware = require('webpack-dev-middleware');
-    const config = require('../config/webpack.config.dev');
+    const config = require('../config/webpack.config.dev').default;
 
     const compiler = webpack(config);
 
@@ -74,8 +75,7 @@ const io = sio({
     path: '/game'
 });
 
-exports.stop = run(reducer, initial, [
+export const stop = run(reducer, initial, [
     ioDelta(io)
 ]);
-exports.app = app;
-exports.io = io;
+export { app, io  };

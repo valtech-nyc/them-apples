@@ -1,1 +1,1 @@
-exports.ioDelta = require('./ioDelta');
+export { default as ioDelta } from './ioDelta';
