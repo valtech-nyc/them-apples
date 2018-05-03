@@ -57,9 +57,11 @@
     "node": "8.9.3"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development DEBUG=myapp:* node scripts/start.js",
+    "start": "cross-env NODE_ENV=development DEBUG=myapp:* node -r esm scripts/start.js",
     "build": "cross-env NODE_ENV=production node scripts/build.js",
-    "test": "cross-env NODE_ENV=test node scripts/test.js --env=jsdom"
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "eslint ./src",
+    "test:unit": "cross-env NODE_ENV=test node scripts/test.js --env=jsdom"
   },
   "jest": {
     "collectCoverageFrom": [

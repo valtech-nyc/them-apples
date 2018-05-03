@@ -38,7 +38,7 @@ module.exports = function run(reducer, initial, deltas) {
         } else {
             loop.queue.push(() => dispatch(action));
         }
-    }
+    };
 
     const sub = deltas$.observe(dispatch);
 

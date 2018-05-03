@@ -10,9 +10,8 @@ module.exports = io => (action$, state$) => Kefir.stream(emitter => {
     const appleScoreValue = 10;
 
     io.on('connection', socket => {
-
         socket.on('join game', playerState => {
-            let player = playerState;
+            const player = playerState;
             player.id = players.length;
             players.push(player);
             socket.emit('set player id', player.id);
@@ -27,7 +26,7 @@ module.exports = io => (action$, state$) => Kefir.stream(emitter => {
             players[players.findIndex(player => player.id === playerState.id)] = playerState;
 
             // Check if apple was eaten
-            let appleCollision = appleCollisionCoords[`${playerState.positionX}.${playerState.positionY}`];
+            const appleCollision = appleCollisionCoords[`${playerState.positionX}.${playerState.positionY}`];
             if (appleCollision && eatenApples.findIndex(appleId => appleCollision.appleId === appleId) === -1) {
                 console.log(`Apple ${appleCollision.appleId} was eaten!`);
                 eatenApples.push(appleCollision.appleId);
@@ -39,7 +38,6 @@ module.exports = io => (action$, state$) => Kefir.stream(emitter => {
             }
 
             socket.broadcast.emit('player list update', players);
-
         });
 
         // Disconnect logic
